@@ -1,19 +1,18 @@
 package io.github.nobe0716.iwsu.entity;
 
-import org.springframework.data.rest.core.annotation.RestResource;
-
 import javax.persistence.*;
 
-@RestResource(path = "/")
 @Entity
-public class ShortenUrl {
+public class ShorteningMapping {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
 	@OrderColumn(nullable = false)
+	@Column(unique = true)
 	private String shorten;
 
 	@OrderColumn(nullable = false)
+	@Column(unique = true)
 	private String original;
 }
