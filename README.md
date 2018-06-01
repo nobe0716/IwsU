@@ -3,7 +3,7 @@
 
 | Build Status  | Coverage   |
 |---|---|
-|![img](https://travis-ci.com/nobe0716/IwsU.svg?branch=develop)|[![codecov](https://codecov.io/gh/springfox/springfox/branch/master/graph/badge.svg)](https://codecov.io/gh/springfox/springfox) |
+|![img](https://travis-ci.com/nobe0716/IwsU.svg?branch=develop)|[![codecov](https://codecov.io/gh/nobe0716/IwsU.svg/branch/develop/graph/badge.svg)](https://codecov.io/gh/nobe0716/IwsU) |
 
 
 
