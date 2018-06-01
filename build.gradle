@@ -30,6 +30,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('com.h2database:h2')
+	compile ('org.apache.commons:commons-lang3:3.7')
+
 	compileOnly('org.projectlombok:lombok:1.16.22')
 	apt("org.projectlombok:lombok:1.16.22")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
