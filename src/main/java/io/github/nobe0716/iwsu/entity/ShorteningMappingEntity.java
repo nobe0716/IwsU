@@ -5,8 +5,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Builder
 @Data
+@Builder
 @Entity
 public class ShorteningMappingEntity {
 	@Id

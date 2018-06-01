@@ -1,32 +1,39 @@
 package io.github.nobe0716.iwsu.service;
 
 import io.github.nobe0716.iwsu.entity.ShorteningMappingEntity;
+import io.github.nobe0716.iwsu.hash.ShortenHashGenerator;
 import io.github.nobe0716.iwsu.model.GenerationResult;
 import io.github.nobe0716.iwsu.repository.ShorteningMappingRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.RandomStringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ShorteningMappingService {
-	private static final int SHORTEN_URL_LEN = 8;
+	public static final int SHORTEN_URL_LEN = 8;
 	private final ShorteningMappingRepository shorteningMappingRepository;
+	private final ShortenHashGenerator shortenHashGenerator;
 
 	public GenerationResult findOrSaveMapping(String url) {
-		ShorteningMappingEntity fromDB = shorteningMappingRepository.findByOriginal(url);
-		if (fromDB != null) {
-			return GenerationResult.of(false, fromDB);
-		}
-		ShorteningMappingEntity newEntity = ShorteningMappingEntity.builder()
+		Optional<ShorteningMappingEntity> optional = Optional.ofNullable(shorteningMappingRepository.findByOriginal(url));
+		ShorteningMappingEntity entity = optional.orElseGet(() ->
+			shorteningMappingRepository.saveAndFlush(ShorteningMappingEntity.builder()
 				.original(url)
-				.shorten(RandomStringUtils.randomAlphanumeric(SHORTEN_URL_LEN))
-				.build();
-		return GenerationResult.of(true, shorteningMappingRepository.save(newEntity));
+				.shorten(shortenHashGenerator.digest(url))
+				.build()));
+		return GenerationResult.of(!optional.isPresent(), entity);
 	}
 
-	public ShorteningMappingEntity findOne(long id) {
-		return shorteningMappingRepository.findOne(id);
+	public Optional<ShorteningMappingEntity> findOne(long id) {
+		return Optional.ofNullable(shorteningMappingRepository.findOne(id));
+	}
+
+	public Optional<ShorteningMappingEntity> findByShorten(String shorten) {
+		return Optional.ofNullable(shorteningMappingRepository.findByShorten(shorten));
 	}
 }

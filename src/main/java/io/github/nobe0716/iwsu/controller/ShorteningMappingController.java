@@ -1,40 +1,45 @@
 package io.github.nobe0716.iwsu.controller;
 
+import io.github.nobe0716.iwsu.entity.ShorteningMappingEntity;
 import io.github.nobe0716.iwsu.model.GenerationResult;
 import io.github.nobe0716.iwsu.model.req.GenerateShortenReq;
-import io.github.nobe0716.iwsu.model.res.GenerateShortenRto;
-import io.github.nobe0716.iwsu.model.res.ShortenMappingRto;
+import io.github.nobe0716.iwsu.model.res.ShorteningMappingRto;
 import io.github.nobe0716.iwsu.service.ShorteningMappingService;
+import io.github.nobe0716.iwsu.util.UrlComposer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.net.URI;
 
-@Validated
 @RestController
-@RequestMapping("v1/mappings")
+@RequestMapping("/v1/mappings")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ShorteningMappingController {
 	private final ShorteningMappingService shorteningMappingService;
-
+	private final UrlComposer urlComposer;
 	@PostMapping("")
-	public ResponseEntity<GenerateShortenRto> generateShorten(@RequestBody GenerateShortenReq req,
-															  HttpServletRequest httpServletRequest) {
+	public ResponseEntity<ShorteningMappingRto> generateShorten(@RequestBody @Valid GenerateShortenReq req,
+																HttpServletRequest httpServletRequest) {
 		GenerationResult result = shorteningMappingService.findOrSaveMapping(req.getUrl());
-
-		GenerateShortenRto rto = GenerateShortenRto.of(result);
+		ShorteningMappingEntity entity = result.getEntity();
 		StringBuffer sb = httpServletRequest.getRequestURL();
-		sb.append("/").append(result.getId());
-		return ResponseEntity.created(URI.create(sb.toString())).body(rto);
+		sb.append("/").append(entity.getId());
+		return ResponseEntity.created(URI.create(sb.toString()))
+			.body(ShorteningMappingRto.of(entity, urlComposer.getBaseUrl()));
 	}
 
 	@GetMapping("/{id}")
 	@ResponseBody
-	public ShortenMappingRto getBy(@PathVariable long id) {
-		return ShortenMappingRto.of(shorteningMappingService.findOne(id));
+	public ShorteningMappingRto getBy(@PathVariable long id) {
+		return ShorteningMappingRto.of(shorteningMappingService.findOne(id)
+				.orElseThrow(() ->
+					new HttpClientErrorException(HttpStatus.NOT_FOUND, "No Such ShorteningMappingEntity(id=" + id + ")")),
+			urlComposer.getBaseUrl());
 	}
 }
