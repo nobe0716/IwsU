@@ -1,0 +1,39 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.13.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+plugins {
+	id 'net.ltgt.apt' version '0.10'
+}
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'io.github.nobe0716.iwsu'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-data-rest')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('com.h2database:h2:1.4.197')
+	compileOnly('org.projectlombok:lombok:1.16.22')
+	apt("org.projectlombok:lombok:1.16.22")
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
