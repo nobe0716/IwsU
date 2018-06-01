@@ -1,17 +1,17 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.13.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.5.13.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 plugins {
-	id 'net.ltgt.apt' version '0.10'
+    id 'net.ltgt.apt' version '0.10'
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -22,15 +22,24 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('com.h2database:h2')
-	compileOnly('org.projectlombok:lombok:1.16.22')
-	apt("org.projectlombok:lombok:1.16.22")
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    // spring
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-validation')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    //db
+    compile('com.h2database:h2')
+
+    // lib
+    compile('org.apache.commons:commons-lang3:3.7')
+
+    // lombok
+    compileOnly('org.projectlombok:lombok:1.16.22')
+    apt("org.projectlombok:lombok:1.16.22")
 }

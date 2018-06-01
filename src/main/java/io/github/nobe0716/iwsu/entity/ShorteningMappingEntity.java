@@ -1,9 +1,14 @@
 package io.github.nobe0716.iwsu.entity;
 
+import lombok.Builder;
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
+@Builder
 @Entity
-public class ShorteningMapping {
+public class ShorteningMappingEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
