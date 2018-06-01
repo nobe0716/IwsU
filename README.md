@@ -1,5 +1,12 @@
 # I will shorten U
 
+
+| Build Status  | Coverage   |
+|---|---|
+|![img](https://travis-ci.com/nobe0716/IwsU.svg?branch=develop)|[![codecov](https://codecov.io/gh/nobe0716/IwsU.svg/branch/develop/graph/badge.svg)](https://codecov.io/gh/nobe0716/IwsU) |
+
+
+
 ## Functional Requirements
 1. Web view for url input
 2. Shortening key whose length is under 8
