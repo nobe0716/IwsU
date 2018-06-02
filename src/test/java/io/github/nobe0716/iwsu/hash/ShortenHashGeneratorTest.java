@@ -1,7 +1,6 @@
 package io.github.nobe0716.iwsu.hash;
 
 import io.github.nobe0716.iwsu.type.IwsuConstant;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.assertj.core.util.Lists;
 import org.hamcrest.Matchers;
@@ -18,7 +17,6 @@ import java.util.Map;
 
 import static org.junit.Assert.assertThat;
 
-@Slf4j
 @Transactional
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -51,7 +49,7 @@ public class ShortenHashGeneratorTest {
 				String digest = generator.digest(url);
 				System.out.println(digest);
 				if (mapping.containsKey(digest) && !mapping.get(digest).equals(url)) {
-					log.error("Hash Conflict on key: {}. val: {}. {}", digest, url, mapping.get(digest));
+					System.err.printf("Hash Conflict on key: %s. val: %s vs %s\n", digest, url, mapping.get(digest));
 					continue;
 				}
 				mapping.put(digest, url);
