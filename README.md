@@ -2,7 +2,7 @@
 
 | Build Status  | Coverage   |
 |---|---|
-|![img](https://travis-ci.com/nobe0716/IwsU.svg?branch=develop)|[![codecov](https://codecov.io/gh/nobe0716/IwsU.svg/branch/develop/graph/badge.svg)](https://codecov.io/gh/nobe0716/IwsU) |
+|![img](https://travis-ci.com/nobe0716/IwsU.svg?branch=develop)|![codecov](https://codecov.io/gh/nobe0716/IwsU/branch/develop/graph/badge.svg)|
 
 ## Functional Requirements
 1. Web view for url input
