@@ -46,7 +46,7 @@ public class ShortenHashGeneratorTest {
 		for (ShortenHashGenerator generator : generators) {
 //			for (String url : URL_LIST) {
 			Map<String, String> mapping = new HashMap<>();
-			for (int i = 0; i < 1_000_000; ++i) {
+			for (int i = 0; i < 100; ++i) {
 				String url = RandomStringUtils.random(50);
 				String digest = generator.digest(url);
 				System.out.println(digest);
