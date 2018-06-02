@@ -6,7 +6,7 @@
 
 ## Functional Requirements
 1. Web view for url input
-2. Shortening key whose length is under 8
+2. Shortening key whose length is exactly 6 (for convenience of developer :P)
 3. 1 : 1 = Original : Shortened
 
 ## Base

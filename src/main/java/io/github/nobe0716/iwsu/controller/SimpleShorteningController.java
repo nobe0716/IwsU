@@ -19,7 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/v1/mappings")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class ShorteningMappingController {
+public class SimpleShorteningController {
 	private final ShorteningMappingService shorteningMappingService;
 	private final UrlComposer urlComposer;
 

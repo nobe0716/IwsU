@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(ShorteningMappingController.class)
+@WebMvcTest(SimpleShorteningController.class)
 public class ShorteningMappingControllerTest {
 	@Autowired
 	private MockMvc mvc;
