@@ -2,6 +2,7 @@ package io.github.nobe0716.iwsu.controller;
 
 import io.github.nobe0716.iwsu.entity.ShorteningMappingEntity;
 import io.github.nobe0716.iwsu.service.ShorteningMappingService;
+import io.github.nobe0716.iwsu.type.IwsuConstant;
 import io.github.nobe0716.iwsu.type.ShorteningMappingNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class NavigationController {
 	private final ShorteningMappingService shorteningMappingService;
-	private static final Pattern pattern = Pattern.compile("[\\w\\d]{8}");
+	private static final Pattern pattern = Pattern.compile("[\\w\\d]{" + IwsuConstant.SHORTEN_URL_LEN + "}");
 
 	/**
 	 * TODO: 추후 보안 용 혼잡 제어시 모델에 데이터를 내려줘야할 수 있음
