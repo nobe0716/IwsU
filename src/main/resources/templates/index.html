@@ -27,32 +27,38 @@
     </div>
     <div class="container-fluid">
         <h2>U will B</h2>
-        <a id="shortenHash" href="#">Shorten url will be</a>
+        <a id="shortenHash" href="#" onclick="copyToClipBoard()">Shorten url will be</a>
     </div>
 </div>
 <script language="javascript">
-            function doShorten() {
-                var url = $("#url").val();
-                <!--alert(url);-->
-                $.ajax({
-                  url: "/v1/mappings",
-                  type: "POST",
-                  dataType: "json",
-                  data: JSON.stringify({"url": url}),
-                  contentType:"application/json; charset=utf-8",
-                  dataType:"json",
-                  success: function(data){
-                    $("#shortenHash")[0].text = $("#shortenHash")[0].href = data.shortenHash;
-                  }
-                });
+function doShorten() {
+    var url = $("#url").val();
+    <!--alert(url);-->
+    $.ajax({
+      url: "/v1/mappings",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify({"url": url}),
+      contentType:"application/json; charset=utf-8",
+      dataType:"json",
+      success: function(data){
+        $("#shortenHash")[0].text = $("#shortenHash")[0].href = data.shortenHash;
+      }
+    });
 
-                alert(url);
-                return false;
-            }
-
-
-
-
+    alert(url);
+    return false;
+}
+function copyToClipBoard() {
+    var val = $("#shortenHash")[0].href
+    var t = document.createElement("textarea");
+    document.body.appendChild(t);
+    t.value = val;
+    t.select();
+    document.execCommand('copy');
+    document.body.removeChild(t);
+    alert("copied to clipboard: " + val);
+}
 </script>
 
 

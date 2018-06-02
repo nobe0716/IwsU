@@ -29,3 +29,8 @@
   gradlew build && java -jar build\libs\iwsu-0.1.0.jar
   
   ```
+  
+## Usage
+* Visit http://localhost:8080/
+* Enter what to be shorten
+* Check the link!
