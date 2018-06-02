@@ -38,7 +38,7 @@ public class ShortenHashGeneratorTest {
 	@Test
 	public void digest() {
 		List<ShortenHashGenerator> generators = Lists.newArrayList(
-			//		randomStringUtilBasedShortenHashShortener,
+			randomStringUtilBasedShortenHashShortener,
 			hashCodeBaseShortener
 		);
 		for (ShortenHashGenerator generator : generators) {
