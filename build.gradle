@@ -22,9 +22,17 @@ group = 'io.github.nobe0716.iwsu'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
+jar {
+    baseName = 'iwsu'
+    version =  '0.1.0'
+}
+
 repositories {
     mavenCentral()
 }
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 dependencies {
     // spring
