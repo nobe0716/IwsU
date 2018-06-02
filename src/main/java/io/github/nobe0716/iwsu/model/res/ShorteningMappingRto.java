@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data(staticConstructor = "of")
 public class ShorteningMappingRto {
-	private final String original;
-	private final String shorten;
+	private final String originalUrl;
+	private final String shortenHash;
 
 	public static ShorteningMappingRto of(ShorteningMappingEntity entity, String baseUrl) {
-		return ShorteningMappingRto.of(entity.getOriginal(), baseUrl + entity.getShorten());
+		return ShorteningMappingRto.of(entity.getOriginalUrl(), baseUrl + entity.getShortenHash());
 	}
 }

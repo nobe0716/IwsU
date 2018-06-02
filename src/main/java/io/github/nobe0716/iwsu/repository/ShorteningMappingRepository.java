@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ShorteningMappingRepository extends JpaRepository<ShorteningMappingEntity, Long> {
-	ShorteningMappingEntity findByOriginal(String original);
+	ShorteningMappingEntity findByOriginalUrl(String originalUrl);
 
-	ShorteningMappingEntity findByShorten(String shorten);
+	ShorteningMappingEntity findByShortenHash(String shortenHash);
 }

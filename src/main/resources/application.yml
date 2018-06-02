@@ -8,3 +8,5 @@ spring:
   jpa:
     properties:
       show_sql: true
+
+server.error.whitelabel.enabled: false

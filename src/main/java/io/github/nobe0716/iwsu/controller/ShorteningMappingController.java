@@ -8,14 +8,13 @@ import io.github.nobe0716.iwsu.service.ShorteningMappingService;
 import io.github.nobe0716.iwsu.util.UrlComposer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/mappings")
@@ -23,6 +22,7 @@ import java.net.URI;
 public class ShorteningMappingController {
 	private final ShorteningMappingService shorteningMappingService;
 	private final UrlComposer urlComposer;
+
 	@PostMapping("")
 	public ResponseEntity<ShorteningMappingRto> generateShorten(@RequestBody @Valid GenerateShortenReq req,
 																HttpServletRequest httpServletRequest) {
@@ -35,11 +35,11 @@ public class ShorteningMappingController {
 	}
 
 	@GetMapping("/{id}")
-	@ResponseBody
-	public ShorteningMappingRto getBy(@PathVariable long id) {
-		return ShorteningMappingRto.of(shorteningMappingService.findOne(id)
-				.orElseThrow(() ->
-					new HttpClientErrorException(HttpStatus.NOT_FOUND, "No Such ShorteningMappingEntity(id=" + id + ")")),
-			urlComposer.getBaseUrl());
+	public ResponseEntity<ShorteningMappingRto> getBy(@PathVariable long id) {
+		Optional<ShorteningMappingEntity> optional = shorteningMappingService.findOne(id);
+		return optional
+			.map(entity ->
+				ResponseEntity.ok(ShorteningMappingRto.of(entity, urlComposer.getBaseUrl())))
+			.orElse(ResponseEntity.notFound().build());
 	}
 }

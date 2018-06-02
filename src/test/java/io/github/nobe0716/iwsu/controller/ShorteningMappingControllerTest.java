@@ -30,7 +30,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public class ShorteningMappingControllerTest {
 	@Autowired
 	private MockMvc mvc;
-
 	@MockBean
 	private ShorteningMappingService shorteningMappingService;
 	@MockBean

@@ -15,9 +15,9 @@ public class ShorteningMappingEntity {
 
 	@OrderColumn(nullable = false)
 	@Column(unique = true)
-	private String shorten;
+	private String shortenHash;
 
 	@OrderColumn(nullable = false)
 	@Column(unique = true)
-	private String original;
+	private String originalUrl;
 }

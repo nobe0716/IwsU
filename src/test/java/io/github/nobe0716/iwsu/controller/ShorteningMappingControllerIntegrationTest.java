@@ -41,10 +41,10 @@ public class ShorteningMappingControllerIntegrationTest {
 		GenerateShortenReq req = GenerateShortenReq.of(NORMAL_URL);
 		ResponseEntity<ShorteningMappingRto> responseEntity = restTemplate.postForEntity("/v1/mappings", req, ShorteningMappingRto.class);
 
-		String firstShorten = responseEntity.getBody().getShorten();
+		String firstShorten = responseEntity.getBody().getShortenHash();
 
 		responseEntity = restTemplate.postForEntity("/v1/mappings", req, ShorteningMappingRto.class);
-		String secondShorten = responseEntity.getBody().getShorten();
+		String secondShorten = responseEntity.getBody().getShortenHash();
 
 		assertThat(secondShorten, Matchers.is(firstShorten)); // same digest should be given
 	}
@@ -70,8 +70,8 @@ public class ShorteningMappingControllerIntegrationTest {
 
 	@Test
 	public void getByNotExist() {
-		String url = "/v1/mapping/" + RandomStringUtils.randomNumeric(10);
-		ResponseEntity<ShorteningMappingRto> entity = restTemplate.getForEntity(url, ShorteningMappingRto.class);
+		ResponseEntity<Void> entity = restTemplate.getForEntity(
+			"/v1/mappings/{id}", Void.class, RandomStringUtils.randomNumeric(5));
 		assertThat(entity.getStatusCode(), Matchers.is(HttpStatus.NOT_FOUND));
 	}
 }
