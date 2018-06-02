@@ -43,10 +43,6 @@ public class HashCodeBaseShortener implements ShortenHashGenerator {
 		return sb.reverse().toString();
 	}
 
-	public static void main(String[] args) {
-		System.out.println(decodeFromHash((long) Integer.MAX_VALUE - (long) Integer.MIN_VALUE));
-	}
-
 	@Override
 	public String digest(String original) {
 		long key = (long) original.hashCode() - (long) Integer.MIN_VALUE; // assure that it is positive value

@@ -65,6 +65,28 @@ public class ShorteningMappingControllerTest {
 	}
 
 	@Test
+	public void generateDuplicate() throws Exception {
+		ShorteningMappingEntity entity = DummyParamGenerator.getShorteningMappingEntity(NORMAL_URL);
+		GenerationResult generationResult = GenerationResult.of(false, entity);
+		given(shorteningMappingService.findOrSaveMapping(NORMAL_URL))
+			.willReturn(generationResult);
+
+		GenerateShortenReq req = GenerateShortenReq.of(NORMAL_URL);
+		Optional<String> reqAsOptional = JacksonUtils.toJson(req);
+		assert reqAsOptional.isPresent();
+
+		ShorteningMappingRto rto = ShorteningMappingRto.of(entity, urlComposer.getBaseUrl());
+		Optional<String> resAsOptional = JacksonUtils.toJson(rto);
+		assert resAsOptional.isPresent();
+
+		mvc.perform(post("/v1/mappings")
+			.contentType(MediaType.APPLICATION_JSON_UTF8)
+			.content(reqAsOptional.get()))
+			.andExpect(MockMvcResultMatchers.content().json(resAsOptional.get()))
+			.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+	}
+
+	@Test
 	public void generateShortenFromMalFormed() throws Exception {
 		String MALFORMED_URL = "mal_formed_url";
 		GenerateShortenReq req = GenerateShortenReq.of(MALFORMED_URL);

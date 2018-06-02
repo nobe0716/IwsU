@@ -36,7 +36,10 @@ public class NavigationControllerTest {
 	private String ORIGINAL_URL = "https://google.com";
 
 	@Test
-	public void index() {
+	public void index() throws Exception {
+		mvc.perform(get(""))
+			.andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+			.andExpect(MockMvcResultMatchers.view().name("index"));
 	}
 
 	@Test
