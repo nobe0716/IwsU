@@ -23,6 +23,7 @@ import java.net.URI;
 public class ShorteningMappingController {
 	private final ShorteningMappingService shorteningMappingService;
 	private final UrlComposer urlComposer;
+
 	@PostMapping("")
 	public ResponseEntity<ShorteningMappingRto> generateShorten(@RequestBody @Valid GenerateShortenReq req,
 																HttpServletRequest httpServletRequest) {
@@ -35,7 +36,6 @@ public class ShorteningMappingController {
 	}
 
 	@GetMapping("/{id}")
-	@ResponseBody
 	public ShorteningMappingRto getBy(@PathVariable long id) {
 		return ShorteningMappingRto.of(shorteningMappingService.findOne(id)
 				.orElseThrow(() ->
