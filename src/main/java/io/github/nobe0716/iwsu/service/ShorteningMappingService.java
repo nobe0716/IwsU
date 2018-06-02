@@ -15,16 +15,15 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ShorteningMappingService {
-	public static final int SHORTEN_URL_LEN = 8;
 	private final ShorteningMappingRepository shorteningMappingRepository;
 	private final ShortenHashGenerator shortenHashGenerator;
 
 	public GenerationResult findOrSaveMapping(String url) {
-		Optional<ShorteningMappingEntity> optional = Optional.ofNullable(shorteningMappingRepository.findByOriginal(url));
+		Optional<ShorteningMappingEntity> optional = Optional.ofNullable(shorteningMappingRepository.findByOriginalUrl(url));
 		ShorteningMappingEntity entity = optional.orElseGet(() ->
 			shorteningMappingRepository.saveAndFlush(ShorteningMappingEntity.builder()
-				.original(url)
-				.shorten(shortenHashGenerator.digest(url))
+				.originalUrl(url)
+				.shortenHash(shortenHashGenerator.digest(url))
 				.build()));
 		return GenerationResult.of(!optional.isPresent(), entity);
 	}
@@ -33,7 +32,7 @@ public class ShorteningMappingService {
 		return Optional.ofNullable(shorteningMappingRepository.findOne(id));
 	}
 
-	public Optional<ShorteningMappingEntity> findByShorten(String shorten) {
-		return Optional.ofNullable(shorteningMappingRepository.findByShorten(shorten));
+	public Optional<ShorteningMappingEntity> findByShorten(String shortenHash) {
+		return Optional.ofNullable(shorteningMappingRepository.findByShortenHash(shortenHash));
 	}
 }

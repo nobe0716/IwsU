@@ -12,4 +12,8 @@ public class UrlComposer {
 	public String getBaseUrl() {
 		return "http://localhost:" + localServerPort + "/";
 	}
+
+	public String getHashUrl(String shorteningHash) {
+		return getBaseUrl() + shorteningHash;
+	}
 }
