@@ -38,7 +38,7 @@ public class ShorteningMappingService {
 	private String findShortenHash(String url) {
 		String digest = shortenHashGenerator.digest(url);
 		while (findByShorten(digest).isPresent()) {
-			String appendedUrl = RandomStringUtils.randomAlphanumeric(5);
+			String appendedUrl = url + RandomStringUtils.randomAlphanumeric(5);
 			digest = shortenHashGenerator.digest(appendedUrl);
 		}
 		return digest;
