@@ -1,12 +1,13 @@
 spring:
   datasource:
     driverClassName: org.h2.Driver
-    url: jdbc:h2:file:~/db/iwsu.db;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:file:~/db/iwsu.db;DB_CLOSE_ON_EXIT=TRUE
     username: test
     password: test
 
   jpa:
-    properties:
-      show_sql: true
+    show-sql: true
+    hibernate.ddl-auto: create
+    open-in-view: false
 
 server.error.whitelabel.enabled: false
