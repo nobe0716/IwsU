@@ -65,7 +65,7 @@ public class NavigationControllerTest {
 
 	@Test
 	public void malFormedHash() throws Exception {
-		mvc.perform(get("/{shortenHash}", RandomStringUtils.random(10)))
+		mvc.perform(get("/{shortenHash}", RandomStringUtils.randomAlphanumeric(10)))
 			.andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
 			.andExpect(MockMvcResultMatchers.view().name("mappingNotFound"));
 	}

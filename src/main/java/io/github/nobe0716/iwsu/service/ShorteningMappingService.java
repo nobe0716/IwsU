@@ -10,6 +10,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Slf4j
@@ -19,10 +20,11 @@ public class ShorteningMappingService {
 	private final ShorteningMappingRepository shorteningMappingRepository;
 	private final HashCodeBaseShortener shortenHashGenerator;
 
+	@Transactional
 	public GenerationResult findOrSaveMapping(String url) {
 		Optional<ShorteningMappingEntity> optional = Optional.ofNullable(shorteningMappingRepository.findByOriginalUrl(url));
 		ShorteningMappingEntity entity = optional.orElseGet(() ->
-			shorteningMappingRepository.saveAndFlush(ShorteningMappingEntity.builder()
+			shorteningMappingRepository.save(ShorteningMappingEntity.builder()
 				.originalUrl(url)
 				.shortenHash(findShortenHash(url))
 				.build()));
